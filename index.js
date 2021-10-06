@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000;
 async function startApolloServer(typeDefs, resolvers) {
     const app = express();
     app.use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', "http://localhost:3000");
+        res.setHeader('Access-Control-Allow-Origin', "https://amazing-kalam-68e6c5.netlify.app/");
         next();
     });
 
