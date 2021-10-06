@@ -18,7 +18,7 @@ const authResolver = {
                 email: user.email,
                 id: user._id,
             }
-            return { userId: user._id, token: jwt.sign(userForToken, "f1BtnWgD3VKY09") }
+            return { userId: user._id, token: jwt.sign(userForToken, process.env.JWT_SECRET) }
         },
 
         createUser: async (_, args) => {
