@@ -2,9 +2,11 @@ const Event = require('../models/event');
 const User = require('../models/user');
 const { transformEvent } = require('./transform');
 const { UserInputError } = require('apollo-server-express');
+const { combineResolvers } = require("graphql-resolvers");
 const { isLoggedin } = require("../middlewares/isLogin");
 const { PubSub } = require('graphql-subscriptions');
 const pubsub = new PubSub();
+
 
 const eventResolver = {
   Query: {
@@ -19,7 +21,7 @@ const eventResolver = {
   },
 
   Mutation: {
-    createEvent: (isLoggedin, async (_, args, context) => {
+    createEvent: combineResolvers(isLoggedin, async (_, args, context) => {
       const ExistingEvent = await Event.findOne({ title: args.eventInput.title });
       if (ExistingEvent) {
         throw new UserInputError('يوجد لدينا حدث بنفس هذا العنوان، الرجاء اختيار عنوان آخر!!');
