@@ -10,6 +10,7 @@ const typeDefs = gql`
     type AuthData {
         userId: ID!
         token: String!
+        username: String!
     }
 
     type User {
