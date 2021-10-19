@@ -40,7 +40,15 @@ const authResolver = {
                     password: hashedPassword
                 })
                 await user.save()
-                return user
+                const userForToken = {
+                    email: user.email,
+                    id: user._id,
+                }
+                return {
+                    userId: user._id,
+                    token: jwt.sign(userForToken, process.env.JWT_SECRET),
+                    username: user.username
+                }
             } catch (err) {
                 throw err
             }
